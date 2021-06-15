@@ -2,21 +2,23 @@ package com.model;
 
 public class Item {
 
-    private int name;
+    private String name;
     private int health;
     private int damage;
+    private ItemType type;
 
-    public Item(int name, int health, int damage) {
+    public Item(String name, int health, int damage, ItemType type) {
         this.name = name;
         this.health = health;
         this.damage = damage;
+        this.type = type;
     }
 
-    public int getName() {
+    public String getName() {
         return name;
     }
 
-    public void setName(int name) {
+    public void setName(String name) {
         this.name = name;
     }
 
@@ -34,5 +36,13 @@ public class Item {
 
     public void setDamage(int damage) {
         this.damage = damage;
+    }
+
+    public ItemType getType() {
+        return type;
+    }
+
+    public void setType(ItemType type) {
+        this.type = type;
     }
 }
