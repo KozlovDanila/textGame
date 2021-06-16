@@ -15,7 +15,12 @@ public class Player {
     public Player(String name) {
         this.name = name;
         this.health = 100;
-        skills = new ArrayList<>();
+        this.skills = new ArrayList<>();
+    }
+
+    public Player(List<Skill> skills) {
+        this.health = 100;
+        this.skills = skills;
     }
 
     public String getName() {
