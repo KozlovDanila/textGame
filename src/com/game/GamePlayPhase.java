@@ -10,8 +10,8 @@ import com.model.Monster;
 import com.model.Player;
 import com.model.Way;
 import com.process.Battle;
-import com.process.BattleResult;
 import com.process.PlayerHelper;
+
 import java.util.List;
 
 public abstract class GamePlayPhase {
@@ -19,7 +19,7 @@ public abstract class GamePlayPhase {
 	protected final PlayerHelper playerHelper = new PlayerHelper();
 	protected final IDialog dialog = DialogFactory.get();
 
-	private final Battle battle = new Battle();
+	private final Battle battle = new Battle(dialog);
 
 	public GamePlayPhase() {
 	}
@@ -29,10 +29,12 @@ public abstract class GamePlayPhase {
 		if (Way.EXIT == way) {
 			return false;
 		}
-		BattleResult fightResult = battle.fight(getMonster(way));
-		if (!fightResult.isResult()) {
+
+		boolean fightResult = battle.fight(player, getMonster(way), way);
+		if (!fightResult) {
 			return false;
 		}
+
 		Item item = ItemFactory.get();
 		dialog.out(Phrase.DROP_ITEM, item.getName());
 		playerHelper.addItemToPlayer(player, item);
