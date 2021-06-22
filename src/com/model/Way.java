@@ -6,7 +6,7 @@ public enum Way {
 	GO_RIGHT("направо"),
 	EXIT("выйти");
 
-	private String localisation;
+	private final String localisation;
 
 	Way(String localisation) {
 		this.localisation = localisation;

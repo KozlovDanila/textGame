@@ -13,7 +13,7 @@ public class Dialog implements IDialog {
 	}
 
 	@Override
-	public void out(Phrase phrase, String... args) {
+	public void out(Phrase phrase, Object... args) {
 		String s = phraseGetter.get(phrase);
 		if (s != null) {
 			out.out(String.format(s, args));

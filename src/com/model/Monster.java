@@ -1,40 +1,71 @@
 package com.model;
 
+import com.game.HealthProcess;
+
 import java.util.List;
 
-public class Monster {
+public class Monster implements Unit {
 
-    private String name;
-    private int health;
-    private List<Skill> skills;
+	private String name;
+	private int currentHealth;
+	private int fullHealth;
+	private List<Skill> skills;
+	private IHealth healthProcess;
 
-    public Monster(String name, int health, List<Skill> skills) {
-        this.name = name;
-        this.health = health;
-        this.skills = skills;
-    }
+	public Monster(String name, int currentHealth, List<Skill> skills) {
+		this.name = name;
+		this.currentHealth = currentHealth;
+		this.fullHealth = currentHealth;
+		this.skills = skills;
+		this.healthProcess = new HealthProcess(this);
+	}
 
-    public String getName() {
-        return name;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public int getHealth() {
-        return health;
-    }
+	@Override
+	public int getCurrentHealth() {
+		return currentHealth;
+	}
 
-    public void setHealth(int health) {
-        this.health = health;
-    }
+	@Override
+	public void setCurrentHealth(int currentHealth) {
+		this.currentHealth = currentHealth;
+	}
 
-    public List<Skill> getSkills() {
-        return skills;
-    }
+	@Override
+	public int getFullHealth() {
+		return fullHealth;
+	}
 
-    public void setSkills(List<Skill> skills) {
-        this.skills = skills;
-    }
+	@Override
+	public int getAttack() {
+		return 0;
+	}
+
+	public void setFullHealth(int fullHealth) {
+		this.fullHealth = fullHealth;
+	}
+
+	public List<Skill> getSkills() {
+		return skills;
+	}
+
+	public void setSkills(List<Skill> skills) {
+		this.skills = skills;
+	}
+
+	public IHealth getHealthProcess() {
+		return healthProcess;
+	}
+
+	@Override
+	public String toString() {
+		return name + " " + currentHealth + " хп";
+	}
 }

@@ -5,13 +5,13 @@ public class Skill {
     private String name;
     private String description;
     private SkillType type;
-    private int castCount;
+    private int value;
 
-    public Skill(String name, String description, SkillType type, int castCount) {
+    public Skill(String name, String description, SkillType type, int value) {
         this.name = name;
         this.description = description;
         this.type = type;
-        this.castCount = castCount;
+        this.value = value;
     }
 
     public String getName() {
@@ -38,11 +38,16 @@ public class Skill {
         this.type = type;
     }
 
-    public int getCastCount() {
-        return castCount;
+    public int getValue() {
+        return value;
     }
 
-    public void setCastCount(int castCount) {
-        this.castCount = castCount;
+    public void setValue(int value) {
+        this.value = value;
+    }
+
+    @Override
+    public String toString() {
+        return name + ". " + description;
     }
 }

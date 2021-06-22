@@ -1,73 +1,119 @@
 package com.model;
 
+import com.game.HealthProcess;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class Player {
+public class Player implements Unit {
 
-    private String name;
-    private int health;
-    private List<Skill> skills;
-    private Item hat;
-    private Item boots;
-    private Item sword;
+	private static final int HEALTH = 100;
+	private static final int ATTACK = 10;
 
-    public Player(String name) {
-        this.name = name;
-        this.health = 100;
-        this.skills = new ArrayList<>();
-    }
+	private String name;
+	private int currentHealth;
+	private int fullHealth;
+	private int damage;
+	private List<Skill> skills;
+	private Item hat = Item.EMPTY_ITEM;
+	private Item boots = Item.EMPTY_ITEM;
+	private Item sword = Item.EMPTY_ITEM;
+	private final IHealth healthProcess;
 
-    public Player(List<Skill> skills) {
-        this.health = 100;
-        this.skills = skills;
-    }
+	public Player(String name) {
+		this.name = name;
+		this.currentHealth = HEALTH;
+		this.fullHealth = HEALTH;
+		this.damage = ATTACK;
+		this.skills = new ArrayList<>();
+		this.healthProcess = new HealthProcess(this);
+	}
 
-    public String getName() {
-        return name;
-    }
+	public Player(List<Skill> skills) {
+		this.currentHealth = HEALTH;
+		this.fullHealth = HEALTH;
+		this.damage = ATTACK;
+		this.skills = skills;
+		this.healthProcess = new HealthProcess(this);
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public int getHealth() {
-        return health;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public void setHealth(int health) {
-        this.health = health;
-    }
+	@Override
+	public int getCurrentHealth() {
+		return currentHealth;
+	}
 
-    public List<Skill> getSkills() {
-        return skills;
-    }
+	public void setCurrentHealth(int currentHealth) {
+		this.currentHealth = currentHealth;
+	}
 
-    public void setSkills(List<Skill> skills) {
-        this.skills = skills;
-    }
+	@Override
+	public int getFullHealth() {
+		return fullHealth;
+	}
 
-    public Item getHat() {
-        return hat;
-    }
+	public void resetHealth() {
+		this.currentHealth = fullHealth;
+	}
 
-    public void setHat(Item hat) {
-        this.hat = hat;
-    }
+	public List<Skill> getSkills() {
+		return skills;
+	}
 
-    public Item getBoots() {
-        return boots;
-    }
+	public void setSkills(List<Skill> skills) {
+		this.skills = skills;
+	}
 
-    public void setBoots(Item boots) {
-        this.boots = boots;
-    }
+	public Item getHat() {
+		return hat;
+	}
 
-    public Item getSword() {
-        return sword;
-    }
+	public void setHat(Item hat) {
+		addHealthAndDamage(hat);
+		this.hat = hat;
+	}
 
-    public void setSword(Item sword) {
-        this.sword = sword;
-    }
+	public Item getBoots() {
+		return boots;
+	}
+
+	public void setBoots(Item boots) {
+		addHealthAndDamage(boots);
+		this.boots = boots;
+	}
+
+	public Item getSword() {
+		return sword;
+	}
+
+	public void setSword(Item sword) {
+		addHealthAndDamage(sword);
+		this.sword = sword;
+	}
+
+	public IHealth getHealthProcess() {
+		return healthProcess;
+	}
+
+	public int getAttack() {
+		return damage;
+	}
+
+	private void addHealthAndDamage(Item item) {
+		damage += item.getDamage();
+		fullHealth += item.getHealth();
+		currentHealth += item.getHealth();
+	}
+
+	@Override
+	public String toString() {
+		return "Имя - " + name + ", " + "хп - " + currentHealth + ", атака - " + damage;
+	}
 }

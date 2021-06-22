@@ -1,6 +1,9 @@
 package com.io;
 
 public enum Phrase {
+    PLAYER_INFO,
+    MONSTER_INFO,
+
     GREETING,
     START_JOURNEY,
     REPEAT_WAY,
@@ -12,6 +15,20 @@ public enum Phrase {
     BATTLE_START,
     BATTLE_END_GOOD,
     BATTLE_END_BAD,
+
+    SKILL_SELECT,
+    SELECTED_SKILL,
+    BAD_SKILL_SELECT,
+    SKILL_DESCRIPTION,
+
+    MONSTER_SKILL,
+
+    SHIELD,
+    DAMAGE,
+    HEALTH,
+
+    MONSTER_MOTION,
+    PLAYER_MOTION,
 
     DROP_ITEM,
     WIN,

@@ -1,4 +1,4 @@
-package com.process;
+package com.game;
 
 import com.factoires.SkillFactory;
 import com.model.Item;

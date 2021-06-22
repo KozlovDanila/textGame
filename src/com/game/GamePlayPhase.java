@@ -3,16 +3,15 @@ package com.game;
 import com.factoires.DialogFactory;
 import com.factoires.ItemFactory;
 import com.factoires.MonsterFactory;
+import com.factoires.WaysGetter;
 import com.io.IDialog;
 import com.io.Phrase;
 import com.model.Item;
 import com.model.Monster;
 import com.model.Player;
 import com.model.Way;
-import com.process.Battle;
-import com.process.PlayerHelper;
 
-import java.util.List;
+import java.util.Arrays;
 
 public abstract class GamePlayPhase {
 
@@ -29,26 +28,34 @@ public abstract class GamePlayPhase {
 		if (Way.EXIT == way) {
 			return false;
 		}
-
-		boolean fightResult = battle.fight(player, getMonster(way), way);
+		Monster monster = getMonster(way);
+		WaysGetter.removeWay(way);
+		dialog.out(Phrase.BATTLE_START, way.getLocalisation(), monster);
+		dialog.out(Phrase.PLAYER_INFO, player);
+		dialog.out(Phrase.MONSTER_INFO, monster);
+		boolean fightResult = battle.fight(player, monster);
 		if (!fightResult) {
 			return false;
 		}
 
+		player.resetHealth();
 		Item item = ItemFactory.get();
 		dialog.out(Phrase.DROP_ITEM, item.getName());
 		playerHelper.addItemToPlayer(player, item);
+		dialog.out(Phrase.PLAYER_INFO, player);
 		return true;
 	}
 
 	protected abstract void startPhaseAction();
 
-	protected abstract List<String> getWays();
+	protected Object[] getWays() {
+		return WaysGetter.getWays();
+	}
 
 	private Way getWay() {
 		startPhaseAction();
 		String way = dialog.in();
-		while (!getWays().contains(way.toLowerCase())) {
+		while (!Arrays.asList(getWays()).contains(way.toLowerCase())) {
 			dialog.out(Phrase.REPEAT_WAY);
 			way = dialog.in();
 		}

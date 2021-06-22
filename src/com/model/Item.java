@@ -2,6 +2,8 @@ package com.model;
 
 public class Item {
 
+    public static final Item EMPTY_ITEM = new Item("Нет предмета", 0, 0, ItemType.BOOTS);
+
     private String name;
     private int health;
     private int damage;
