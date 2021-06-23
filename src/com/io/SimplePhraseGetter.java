@@ -1,12 +1,9 @@
-package com.io.console;
-
-import com.io.IPhraseGetter;
-import com.io.Phrase;
+package com.io;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class ConsolePhraseGetter implements IPhraseGetter {
+public class SimplePhraseGetter implements IPhraseGetter {
 
     private final Map<Phrase, String> values = new HashMap<Phrase, String>() {{
         put(Phrase.PLAYER_INFO, "Информация о тебе: %s");
@@ -39,7 +36,7 @@ public class ConsolePhraseGetter implements IPhraseGetter {
 
         put(Phrase.DROP_ITEM, "Тебе выпала вещь - %s");
         put(Phrase.WIN, "Поздравляю, ты могучий воин и победил");
-        put(Phrase.LOSE, "Соре, но ты проиграл, ЛОХ!");
+        put(Phrase.LOSE, "Соре, но ты проиграл :( ");
     }};
 
     @Override
